@@ -2,7 +2,6 @@ package bsu.mmf.algorithms.lab1.part1;
 
 import java.io.*;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Array {
 
@@ -29,17 +28,5 @@ public class Array {
         }
         in.close();
         return array;
-    }
-
-    public static void sortArray() throws IOException {
-        //createArray();
-        int[][] array = Array.fillArrays();
-        long start = System.nanoTime();
-        for (int i = 0; i < Variables.NUMBER_OF_ARRAYS; i++) {
-            Algorithms.mergeSort(array[i], 0, array[i].length - 1);
-            //Algorithms.insertionSort(array[i]);
-        }
-        long finish = System.nanoTime() - start;
-        System.out.println( finish + "\n" + TimeUnit.SECONDS.convert(finish, TimeUnit.NANOSECONDS));
     }
 }
