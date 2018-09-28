@@ -1,8 +1,7 @@
 package bsu.mmf.algorithms.lab1.part1;
 
 public class Algorithms {
-    public static void mergeSort(int[] array, int leftIndex, int rightIndex) {
-
+    void mergeSort(int[] array, int leftIndex, int rightIndex) {
         if (leftIndex < rightIndex) {
             int middleIndex = (rightIndex + leftIndex) / 2;
             mergeSort(array, leftIndex, middleIndex);
@@ -11,7 +10,7 @@ public class Algorithms {
         }
     }
 
-    public static void hybridSort(int[] array, int leftIndex, int rightIndex) {
+    void hybridSort(int[] array, int leftIndex, int rightIndex) {
         if ((rightIndex - leftIndex) > Variables.n) {
             if (leftIndex < rightIndex) {
                 int middleIndex = (rightIndex + leftIndex) / 2;
@@ -20,48 +19,46 @@ public class Algorithms {
                 merge(array, leftIndex, middleIndex, rightIndex);
             }
         } else {
-            insertionSort(array, leftIndex, rightIndex + 1);
+            insertionSort(array, leftIndex, rightIndex);
         }
     }
 
-    public static void merge(int[] array, int left, int middle, int right) {
-        int leftLength = middle - left + 1;
-        int rightLength = right - middle;
-        int[] leftArray = new int[leftLength + 1];
-        int[] rightArray = new int[rightLength + 1];
-        for (int i = 0; i < leftLength; ++i) {
-            leftArray[i] = array[left + i];
-        }
-        for (int i = 0; i < rightLength; ++i) {
-            rightArray[i] = array[middle + i + 1];
-        }
-        leftArray[leftLength] = (int) Double.POSITIVE_INFINITY;
-        rightArray[rightLength] = (int) Double.POSITIVE_INFINITY;
-        int i = 0, j = 0;
-        for (int k = left; k <= right; ++k) {
-            if (leftArray[i] <= rightArray[j]) {
-                array[k] = leftArray[i];
-                ++i;
+    void merge(int[] array, int leftIndex, int middleIndex, int rightIndex) {
+        int it1 = 0;
+        int it2 = 0;
+        int[] result = new int[rightIndex - leftIndex];
+
+        while (leftIndex + it1 < middleIndex && middleIndex + it2 < rightIndex) {
+            if (array[leftIndex + it1] < array[middleIndex + it2]) {
+                result[it1 + it2] = array[leftIndex + it1];
+                it1 += 1;
             } else {
-                array[k] = rightArray[j];
-                ++j;
+                result[it1 + it2] = array[middleIndex + it2];
+                it2 += 1;
             }
+        }
+        while (leftIndex + it1 < middleIndex) {
+            result[it1 + it2] = array[leftIndex + it1];
+            it1 += 1;
+        }
+        while (middleIndex + it2 < rightIndex) {
+            result[it1 + it2] = array[middleIndex + it2];
+            it2 += 1;
+        }
+        for (int i = 0; i < it1 + it2; i += 1) {
+            array[leftIndex + i] = result[i];
         }
     }
 
-    public static void insertionSort(int[] array, int left, int right) {
-        int current, j;
-
-        for (int i = left + 1; i < right - left; ++i) {
-            current = array[i];
-            j = i - 1;
-
-            while (j >= left && array[j] > current) {
-                array[j + 1] = array[j];
-                --j;
+    void insertionSort(int[] array, int left, int right) {
+        for (int i = left; i < right; i++) {
+            for (int j = i + 1; j > left; j--) {
+                if (array[j] < array[j - 1]) {
+                    int temp = array[j];
+                    array[j] = array[j - 1];
+                    array[j - 1] = temp;
+                }
             }
-
-            array[j + 1] = current;
         }
     }
 }

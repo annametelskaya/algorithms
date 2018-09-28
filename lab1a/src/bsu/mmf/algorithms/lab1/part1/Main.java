@@ -6,21 +6,24 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Array.createArray();
         int[][] a = Array.fillArrays();
+        Algorithms al = new Algorithms();
         long start0 = System.nanoTime();
         for (int i = 0; i < Variables.NUMBER_OF_ARRAYS; i++) {
-            Algorithms.mergeSort(a[i], 0, a[i].length - 1);
+            al.mergeSort(a[i], 0, Variables.ARRAY_LENGTH - 1);
         }
         long finish0 = (System.nanoTime() - start0);
-        System.out.println(finish0 + " наносекунды");
+        System.out.println("Мердж: " + finish0 + " наносекунды");
         while (Variables.n > 6) {
             int[][] array = Array.fillArrays();
             long start = System.nanoTime();
             for (int i = 0; i < Variables.NUMBER_OF_ARRAYS; i++) {
-                Algorithms.hybridSort(array[i], 0, array[i].length - 1);
+                al.hybridSort(array[i], 0, Variables.ARRAY_LENGTH - 1);
             }
             long finish = (System.nanoTime() - start);
             if (finish < finish0) {
-                System.out.println(finish + " наносекунды " + Variables.n);
+                System.out.println("Гибрид быстрее на: " + (finish0 - finish) + " наносекунды " + Variables.n);
+            } else {
+                System.out.println(Variables.n);
             }
             Variables.n--;
         }
