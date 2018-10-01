@@ -7,4 +7,9 @@ public class Array {
         }
         System.out.println();
     }
+    public static void fillArray(int [] arr, int n){
+        for (int i=0;i<n; i++){
+            arr[i]=(int)(Math.random()*10);
+        }
+    }
 }

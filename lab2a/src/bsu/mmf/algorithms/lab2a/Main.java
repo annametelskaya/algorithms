@@ -4,13 +4,23 @@ public class Main {
     public static void main(String[] args) {
         Sort q = new Sort();
         Search s = new Search();
-        int[] arr = new int[]{78, 546, 684, 647, 47687, 53, 548, 7, 34, 68, 3, 0, 8654, 687, 64, 87663, 6};
-        Array.printArray(arr);
-        q.quickSort(arr, 0, arr.length - 1);
-        Array.printArray(arr);
-        int x = s.binarySearch(arr, 0, arr.length - 1, 53);
-        System.out.println(x);
-        x = s.interpolationSearch(arr, 0, arr.length - 1, 53);
-        System.out.println(x);
+        for (int i = 1; i < 20; i++) {
+            int[] arr = new int[i + 1];
+            Array.fillArray(arr, i + 1);
+            //Array.printArray(arr);
+            q.quickSort(arr, 0, arr.length - 1);
+            //Array.printArray(arr);
+            long start0 = System.nanoTime();
+            int x = s.binarySearch(arr, 1);
+            long finish0 = System.nanoTime() - start0;
+            long start1 = System.nanoTime();
+            x = s.interpolationSearch(arr, 1);
+            long finish1 = System.nanoTime() - start1;
+            if (finish0 < finish1) {
+                System.out.println("На массиве размером:" + (i + 1));
+                System.out.println("Бинарный поиск(" + finish0 + ") быстрее чем интерполяуионный (" + finish1 + ")");
+                break;
+            }
+        }
     }
 }
