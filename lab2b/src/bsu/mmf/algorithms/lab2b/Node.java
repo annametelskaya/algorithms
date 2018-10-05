@@ -1,46 +1,22 @@
 package bsu.mmf.algorithms.lab2b;
 
 public class Node {
-    private int number;
-    private int countNodeLeft;
-    private int countNodeRight;
-    private Node left;
-    private Node right;
+    int data;
+    Node left;
+    Node right;
 
-    public Node(int number) {
-        this.setNumber(number);
+    public Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
     }
 
-    public Node(int number, Node left, Node right) {
-        this.setNumber(number);
-        this.setCountNodeLeft(0);
-        this.setCountNodeRight(0);
-        this.setLeft(left);
-        this.setRight(right);
+    public int getData() {
+        return data;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getCountNodeLeft() {
-        return countNodeLeft;
-    }
-
-    public void setCountNodeLeft(int countNodeLeft) {
-        this.countNodeLeft = countNodeLeft;
-    }
-
-    public int getCountNodeRight() {
-        return countNodeRight;
-    }
-
-    public void setCountNodeRight(int countNodeRight) {
-        this.countNodeRight = countNodeRight;
+    public void setData(int data) {
+        this.data = data;
     }
 
     public Node getLeft() {
@@ -61,20 +37,10 @@ public class Node {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("[");
-        builder.append("value=" + number);
-        if (left != null) {
-            builder.append(", left=" + left);
-        } else {
-            builder.append(", left= no");
-        }
-        if (right != null) {
-            builder.append(", right=" + right);
-        } else {
-            builder.append(", right= no");
-        }
-        builder.append("]");
-        return builder.toString();
+        return "Node{" +
+                "data=" + data +
+                ", left=" + left +
+                ", right=" + right +
+                '}';
     }
 }
