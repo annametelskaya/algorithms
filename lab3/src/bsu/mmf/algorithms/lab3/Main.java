@@ -50,18 +50,20 @@ public class Main {
             if (max < QuadraticHashTable.MAX_INSERTION) {
                 max = QuadraticHashTable.MAX_INSERTION;
             }
-            System.out.println((i + 1) + " Максимальная итерация: " + QuadraticHashTable.MAX_INSERTION);
+            System.out.println("maximum iteration of " + (i + 1) + ": " + QuadraticHashTable.MAX_INSERTION);
         }
-        System.out.println("!!!! " + max);
+        System.out.println("maximum iteration of all arrays " + max);
     }
 
     public static void main(String[] args) throws IOException {
         //createArray();
         int[][] array = fillArrays();
+        System.out.println("Chain method:");
         findAvgLenght(array, Variables.A);
         findAvgLenght(array, Variables.A1);
         findAvgLenght(array, Variables.A2);
         findAvgLenght(array, Variables.A3);
+        System.out.println("Quadratic method:");
         findMAX(array);
     }
 }

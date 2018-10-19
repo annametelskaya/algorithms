@@ -14,23 +14,22 @@ public class QuadraticHashTable {
         MAX_INSERTION = 0;
     }
 
-    public int hashFunction(int value, int i) {
-        return ((value % Variables.CONST + i * i) % size);
+    public int hashFunction(int value) {
+        return (int) (value % Variables.CONST * Variables.A % 1 * size);
     }
 
     private void insert(int value) {
-        int index, a = value ;
-        for (int i = 0; i < size; i++) {
-            index = hashFunction(a, i);
-            if (array[index].getElement() == 0) {
-                if (MAX_INSERTION < i+1) {
-                    MAX_INSERTION = i+1;
-                }
-                array[index].setElement(value);
-                array[index].setKey(index);
-                return;
-            }
-            a = index;
+        int i = 1, hash = hashFunction(value), index = hash;
+        while (array[index].getElement() != 0 && array[index].getElement() != value) {
+            index = (index + i * i) % size;
+            i++;
+        }
+        if (array[index].getElement() != value) {
+            array[index].setElement(value);
+            array[index].setKey(hash);
+        }
+        if (MAX_INSERTION < i) {
+            MAX_INSERTION = i;
         }
     }
 
@@ -41,9 +40,17 @@ public class QuadraticHashTable {
 
     }
 
-    public Node search(int key) {
-        if (key < size) {
-            return array[key];
+    public Node search(int value) {
+        int i = 1, hash = hashFunction(value), index = hash;
+        while (array[index].getElement() != 0 && array[index].getElement() != value) {
+            index = (index + i * i) % size;
+            i++;
+        }
+        if (array[index].getElement() != value) {
+            return array[index];
+        }
+        if (MAX_INSERTION < i) {
+            MAX_INSERTION = i;
         }
         return null;
     }
