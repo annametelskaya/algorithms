@@ -12,7 +12,7 @@ public class Main {
         BufferedWriter out = new BufferedWriter(new FileWriter(filePath));
         for (int j = 0; j < Variables.NUMBER_OF_ARRAYS; j++) {
             for (int i = 0; i < Variables.ARRAY_SIZE; i++) {
-                int number = (int) (Math.random() * Variables.ARRAY_SIZE);
+                int number = 1 + (int) (Math.random() * Variables.ARRAY_SIZE);
                 out.write(number + " ");
             }
         }
@@ -35,7 +35,7 @@ public class Main {
     private static void findAvgLenght(int array[][], double A) {
         int sum = 0;
         for (int i = 0; i < Variables.NUMBER_OF_ARRAYS; i++) {
-            HashTable table = new HashTable(A);
+            ChainHashTable table = new ChainHashTable(A);
             table.insert(array[i]);
             sum += table.findMaxChain();
         }
@@ -43,11 +43,16 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        //Array.createArray();
+        //createArray();
         int[][] array = fillArrays();
-        findAvgLenght(array,Variables.A);
-        findAvgLenght(array,Variables.A1);
-        findAvgLenght(array,Variables.A2);
-        findAvgLenght(array,Variables.A3);
+        findAvgLenght(array, Variables.A);
+        findAvgLenght(array, Variables.A1);
+        findAvgLenght(array, Variables.A2);
+        findAvgLenght(array, Variables.A3);
+        for (int i = 0; i < Variables.NUMBER_OF_ARRAYS; i++) {
+            QuadraticHashTable table = new QuadraticHashTable(1024);
+            table.insert(array[i]);
+            System.out.println("\n" + (i + 1) + "Максимальная цепочка: " + QuadraticHashTable.MAX_INSERTION);
+        }
     }
 }
