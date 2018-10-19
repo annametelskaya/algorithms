@@ -42,6 +42,19 @@ public class Main {
         System.out.println("A=" + A + ", length=" + sum / 50 + ", sum=" + sum);
     }
 
+    private static void findMAX(int[][] array) {
+        int max = 0;
+        for (int i = 0; i < Variables.NUMBER_OF_ARRAYS; i++) {
+            QuadraticHashTable table = new QuadraticHashTable(1024);
+            table.insert(array[i]);
+            if (max < QuadraticHashTable.MAX_INSERTION) {
+                max = QuadraticHashTable.MAX_INSERTION;
+            }
+            System.out.println((i + 1) + " Максимальная итерация: " + QuadraticHashTable.MAX_INSERTION);
+        }
+        System.out.println("!!!! " + max);
+    }
+
     public static void main(String[] args) throws IOException {
         //createArray();
         int[][] array = fillArrays();
@@ -49,10 +62,6 @@ public class Main {
         findAvgLenght(array, Variables.A1);
         findAvgLenght(array, Variables.A2);
         findAvgLenght(array, Variables.A3);
-        for (int i = 0; i < Variables.NUMBER_OF_ARRAYS; i++) {
-            QuadraticHashTable table = new QuadraticHashTable(1024);
-            table.insert(array[i]);
-            System.out.println("\n" + (i + 1) + "Максимальная цепочка: " + QuadraticHashTable.MAX_INSERTION);
-        }
+        findMAX(array);
     }
 }
