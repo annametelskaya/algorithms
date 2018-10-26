@@ -5,9 +5,8 @@ import java.util.Scanner;
 
 public class Menu {
     public static void GetMenu() {
-        int v = 5;
+        int v = 0;
         Graph graph = new Graph(v);
-        fillGraph(graph);
         boolean flag = true;
         while (flag) {
             System.out.println("\nSelect: " +
@@ -76,13 +75,6 @@ public class Menu {
                 }
             }
         }
-    }
-
-    private static void fillGraph(Graph graph) {
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(2, 4);
     }
 
     private static int getNumber() {

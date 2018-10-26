@@ -4,7 +4,11 @@ import java.util.Stack;
 
 public class Algorithm {
 
-    public static void printGraph(Graph graph) {
+    static void printGraph(Graph graph) {
+        if(graph.getVertexNumber()==0){
+            System.out.println("Enter graph");
+            return;
+        }
         System.out.println("Adjacency List:  ");
         for (int v = 0; v < graph.getVertexNumber(); v++) {
             System.out.print("vertex " + (v + 1));

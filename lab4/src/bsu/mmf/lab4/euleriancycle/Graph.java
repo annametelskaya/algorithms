@@ -2,7 +2,6 @@ package bsu.mmf.lab4.euleriancycle;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 class Graph {
     private int vertexNumber;
