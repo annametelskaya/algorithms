@@ -23,7 +23,7 @@ public class Menu {
             int num = getNumber();
             switch (num) {
                 case 1: {
-                    graph.printGraph();
+                    Algorithm.printGraph(graph);
                     break;
                 }
                 case 2: {
@@ -38,7 +38,7 @@ public class Menu {
                     break;
                 }
                 case 4: {
-                    System.out.println("Choose vertex from 1 to " + v + ":");
+                    System.out.println("Choose vertex from 1 to " + graph.getVertexNumber() + ":");
                     int n = (getNumber() - 1);
                     graph.removeVertex(n);
                     break;
@@ -51,7 +51,7 @@ public class Menu {
                     break;
                 }
                 case 6: {
-                    if (graph.isEulerian()) {
+                    if (Algorithm.isEulerian(graph)) {
                         System.out.println("Graph is eulerian");
                     } else {
                         System.out.println("Graph isn't eulerian");
@@ -59,7 +59,7 @@ public class Menu {
                     break;
                 }
                 case 7: {
-                    graph.findEulerianCycle();
+                    Algorithm.findEulerianCycle(graph);
                     System.out.println(graph.getCycle());
                     break;
                 }
