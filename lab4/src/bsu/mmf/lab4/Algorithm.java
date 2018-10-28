@@ -1,6 +1,4 @@
-package bsu.mmf.lab4.euleriancycle;
-
-import bsu.mmf.lab4.Graph;
+package bsu.mmf.lab4;
 
 import java.util.Stack;
 

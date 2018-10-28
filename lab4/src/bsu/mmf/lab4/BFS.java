@@ -1,6 +1,5 @@
-package bsu.mmf.lab4.bfs;
+package bsu.mmf.lab4;
 
-import bsu.mmf.lab4.Graph;
 
 import java.util.LinkedList;
 
@@ -50,19 +49,23 @@ class BFS {
             }
         }
         System.out.println("Component number" + numberOfComponents);
+        //System.out.println(v);
         printBFS(maxLevel, graph, v);
     }
 
     private void printBFS(int maxLevel, Graph graph, LinkedList<Integer> v) {
-
-        for (int i = 0; i < maxLevel; i++) {
-            System.out.print("Level " + (i + 1) + ": ");
-            for (int j = 0; j < v.size(); j++) {
-                if (graph.getVertexLevel()[v.get(j)] == i) {
-                    System.out.print((v.get(j) + 1) + "  ");
+        if (maxLevel == 0) {
+            System.out.println("Level 1: " + (v.get(0) + 1));
+        } else {
+            for (int i = 0; i < maxLevel; i++) {
+                System.out.print("Level " + (i + 1) + ": ");
+                for (Integer j : v) {
+                    if (graph.getVertexLevel()[j] == i) {
+                        System.out.print((j + 1) + "  ");
+                    }
                 }
+                System.out.println();
             }
-            System.out.println();
         }
     }
 }

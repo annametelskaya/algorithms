@@ -1,6 +1,4 @@
-package bsu.mmf.lab4.euleriancycle;
-
-import bsu.mmf.lab4.Graph;
+package bsu.mmf.lab4;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,44 +11,62 @@ class Menu {
         while (flag) {
             System.out.println("\nSelect: " +
                     "\n1)Print graph" +
-                    "\n2)Add vertex" +
-                    "\n3)Add edge" +
+                    "\n2)Add vertices" +
+                    "\n3)Add edges" +
                     "\n4)Delete vertex" +
                     "\n5)Delete edge" +
                     "\n6)Check is it possible to build cycle" +
                     "\n7)Build cycle" +
-                    "\n8)Delete all vertices in graph" +
-                    "\n9)Delete all edges in graph" +
-                    "\n10)Exit");
+                    "\n8)Find components" +
+                    "\n9)Delete all vertices in graph" +
+                    "\n10)Delete all edges in graph" +
+                    "\n11)Exit");
             int num = getNumber();
             switch (num) {
                 case 1: {
                     graph.printGraph();
                     break;
                 }
+
                 case 2: {
-                    graph.addVertex();
+                    System.out.println("Enter number of vertices to add: ");
+                    int n = getNumber();
+                    for (int i = 0; i < n; i++) {
+                        graph.addVertex();
+                    }
                     break;
                 }
                 case 3: {
-                    System.out.println("enter vertices of new edge: ");
-                    int n1 = (getNumber() - 1);
-                    int n2 = (getNumber() - 1);
-                    graph.addEdge(n1, n2);
+                    System.out.println("Enter number of edges to add: ");
+                    int n = getNumber();
+                    for (int i = 0; i < n; i++) {
+                        System.out.println("enter vertices of new edge: ");
+                        int n1 = (getNumber() - 1);
+                        int n2 = (getNumber() - 1);
+                        graph.addEdge(n1, n2);
+                    }
                     break;
                 }
                 case 4: {
-                    System.out.println("Choose vertex from 1 to " + graph.getVertexNumber() + ":");
-                    int n = (getNumber() - 1);
-                    graph.removeVertex(n);
-                    break;
+                    if (graph.getVertexNumber() == 0) {
+                        System.out.println("Enter graph first");
+                    } else {
+                        System.out.println("Choose vertex from 1 to " + graph.getVertexNumber() + ":");
+                        int n = (getNumber() - 1);
+                        graph.removeVertex(n);
+                        break;
+                    }
                 }
                 case 5: {
-                    System.out.println("enter vertices of edge:");
-                    int n1 = (getNumber() - 1);
-                    int n2 = (getNumber() - 1);
-                    graph.removeEdge(n1, n2);
-                    break;
+                    if (graph.getVertexNumber() == 0) {
+                        System.out.println("Enter graph first");
+                    } else {
+                        System.out.println("enter vertices of edge:");
+                        int n1 = (getNumber() - 1);
+                        int n2 = (getNumber() - 1);
+                        graph.removeEdge(n1, n2);
+                        break;
+                    }
                 }
                 case 6: {
                     if (Algorithm.isEulerian(graph)) {
@@ -66,15 +82,20 @@ class Menu {
                     break;
                 }
                 case 8: {
+                    BFS b = new BFS();
+                    b.findComponents(graph);
+                    break;
+                }
+                case 9: {
                     v = 0;
                     graph = new Graph(v);
                     break;
                 }
-                case 9: {
+                case 10: {
                     graph = new Graph(v);
                     break;
                 }
-                case 10: {
+                case 11: {
                     flag = false;
                     break;
                 }
