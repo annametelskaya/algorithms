@@ -1,14 +1,19 @@
-package bsu.mmf.lab4.euleriancycle;
+package bsu.mmf.lab4.bfs;
 
 import bsu.mmf.lab4.Graph;
+import bsu.mmf.lab4.euleriancycle.Algorithm;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Menu {
     static void GetMenu() {
-        int v = 0;
+        int v = 5;
         Graph graph = new Graph(v);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(2, 4);
         boolean flag = true;
         while (flag) {
             System.out.println("\nSelect: " +
@@ -17,10 +22,8 @@ class Menu {
                     "\n3)Add edge" +
                     "\n4)Delete vertex" +
                     "\n5)Delete edge" +
-                    "\n6)Check is it possible to build cycle" +
-                    "\n7)Build cycle" +
-                    "\n8)Reset graph" +
-                    "\n9)Exit");
+                    "\n6)BFS" +
+                    "\n7)Exit");
             int num = getNumber();
             switch (num) {
                 case 1: {
@@ -52,29 +55,15 @@ class Menu {
                     break;
                 }
                 case 6: {
-                    if (Algorithm.isEulerian(graph)) {
-                        System.out.println("Graph is eulerian");
-                    } else {
-                        System.out.println("Graph isn't eulerian");
-                    }
+                    BFS.find(graph);
                     break;
                 }
                 case 7: {
-                    Algorithm.findEulerianCycle(graph);
-                    System.out.println(graph.getCycle());
-                    break;
-                }
-                case 8: {
-                    graph = new Graph(v);
-                    break;
-                }
-                case 9: {
                     flag = false;
                     break;
                 }
                 default: {
-                    System.out.println("choose 1-9");
-                    break;
+                    System.out.println("choose 1-");
                 }
             }
         }
