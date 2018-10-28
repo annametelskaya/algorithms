@@ -18,9 +18,10 @@ class Menu {
                     "\n6)Check is it possible to build cycle" +
                     "\n7)Build cycle" +
                     "\n8)Find components" +
-                    "\n9)Delete all vertices in graph" +
-                    "\n10)Delete all edges in graph" +
-                    "\n11)Exit");
+                    "\n9)Check is graph is a bigraph" +
+                    "\n10)Delete all vertices in graph" +
+                    "\n11)Delete all edges in graph" +
+                    "\n12)Exit");
             int num = getNumber();
             switch (num) {
                 case 1: {
@@ -82,20 +83,27 @@ class Menu {
                     break;
                 }
                 case 8: {
-                    BFS b = new BFS();
+                    BFS b = new BFS(graph);
                     b.findComponents(graph);
                     break;
                 }
                 case 9: {
+                    BFS b = new BFS(graph);
+                    if (!b.isBigraph(graph, 0)) {
+                        System.out.println("this graph isn't bipartite");
+                    }
+                    break;
+                }
+                case 10: {
                     v = 0;
                     graph = new Graph(v);
                     break;
                 }
-                case 10: {
+                case 11: {
                     graph = new Graph(v);
                     break;
                 }
-                case 11: {
+                case 12: {
                     flag = false;
                     break;
                 }

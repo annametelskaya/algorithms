@@ -6,15 +6,21 @@ import java.util.LinkedList;
 class BFS {
     private boolean[] used;
     private int[] components;
+    private int[] colors;
     private int numberOfComponents;
 
-    void findComponents(Graph graph) {
+    BFS(Graph graph) {
         used = new boolean[graph.getVertexNumber()];
+        colors = new int[graph.getVertexNumber()];
         components = new int[graph.getVertexNumber()];
         for (int i = 0; i < graph.getVertexNumber(); i++) {
             used[i] = false;
             components[i] = 0;
+            colors[i] = 0;
         }
+    }
+
+    void findComponents(Graph graph) {
         for (int i = 0; i < graph.getVertexNumber(); i++) {
             if (!used[i]) {
                 numberOfComponents++;
@@ -24,33 +30,69 @@ class BFS {
         System.out.println("Number of components: " + numberOfComponents);
     }
 
-    private void doBFS(Graph graph, int s) {
+    boolean isBigraph(Graph graph, int v) {
         LinkedList<Integer> queue = new LinkedList<>();
-        LinkedList<Integer> v = new LinkedList<>();
-        int maxLevel = 0;
-        used[s] = true;
-        components[s] = numberOfComponents;
-        queue.add(s);
-        v.add(s);
-        graph.setVertexLevel(s, 0);
+        used[v] = true;
+        queue.add(v);
+        colors[v] = 1;
         while (queue.size() != 0) {
-            s = queue.pop();
-            for (int i = 0; i < graph.getAdjacencyList()[s].size(); i++) {
-                if (!used[graph.getAdjacencyList()[s].get(i)]) {
-                    queue.push(graph.getAdjacencyList()[s].get(i));
-                    v.push(graph.getAdjacencyList()[s].get(i));
-                    used[graph.getAdjacencyList()[s].get(i)] = true;
-                    components[graph.getAdjacencyList()[s].get(i)] = numberOfComponents;
-                    graph.setVertexLevel(graph.getAdjacencyList()[s].get(i), graph.getVertexLevel()[s] + 1);
-                    if (maxLevel < (graph.getVertexLevel()[graph.getAdjacencyList()[s].get(i)] + 1)) {
-                        maxLevel = graph.getVertexLevel()[graph.getAdjacencyList()[s].get(i)] + 1;
+            v = queue.pop();
+            for (int i = 0; i < graph.getAdjacencyList()[v].size(); i++) {
+                if (!used[graph.getAdjacencyList()[v].get(i)]) {
+                    queue.add(graph.getAdjacencyList()[v].get(i));
+                    used[graph.getAdjacencyList()[v].get(i)] = true;
+                    colors[graph.getAdjacencyList()[v].get(i)] = 3 - colors[v];
+                }
+            }
+        }
+        for (int i = 0; i < graph.getVertexNumber(); i++) {
+            for (int j = 0; j < graph.getAdjacencyList()[i].size(); j++) {
+                if (colors[i] == colors[graph.getAdjacencyList()[i].get(j)]) {
+                    return false;
+                }
+            }
+        }
+        System.out.println("First part of graph: ");
+        for (int i = 0; i < graph.getVertexNumber(); i++) {
+            if (colors[i] == 1) {
+                System.out.print((i + 1) + " ");
+            }
+        }
+        System.out.println("\nSecond part of graph: ");
+        for (int i = 0; i < graph.getVertexNumber(); i++) {
+            if (colors[i] == 2) {
+                System.out.print((i + 1) + " ");
+            }
+        }
+        return true;
+    }
+
+    private void doBFS(Graph graph, int v) {
+        LinkedList<Integer> queue = new LinkedList<>();
+        LinkedList<Integer> c = new LinkedList<>();
+        int maxLevel = 0;
+        used[v] = true;
+        components[v] = numberOfComponents;
+        queue.add(v);
+        c.add(v);
+        graph.setVertexLevel(v, 0);
+        while (queue.size() != 0) {
+            v = queue.pop();
+            for (int i = 0; i < graph.getAdjacencyList()[v].size(); i++) {
+                if (!used[graph.getAdjacencyList()[v].get(i)]) {
+                    queue.add(graph.getAdjacencyList()[v].get(i));
+                    c.add(graph.getAdjacencyList()[v].get(i));
+                    used[graph.getAdjacencyList()[v].get(i)] = true;
+                    components[graph.getAdjacencyList()[v].get(i)] = numberOfComponents;
+                    graph.setVertexLevel(graph.getAdjacencyList()[v].get(i), graph.getVertexLevel()[v] + 1);
+                    if (maxLevel < (graph.getVertexLevel()[graph.getAdjacencyList()[v].get(i)] + 1)) {
+                        maxLevel = graph.getVertexLevel()[graph.getAdjacencyList()[v].get(i)] + 1;
                     }
                 }
             }
         }
         System.out.println("Component number" + numberOfComponents);
-        //System.out.println(v);
-        printBFS(maxLevel, graph, v);
+        printBFS(maxLevel, graph, c);
     }
 
     private void printBFS(int maxLevel, Graph graph, LinkedList<Integer> v) {
