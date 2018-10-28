@@ -2,7 +2,7 @@ package bsu.mmf.lab4;
 
 import java.util.Stack;
 
-public class Algorithm {
+ class Algorithm {
 
     static boolean isEulerian(Graph graph) {
         for (int i = 0; i < graph.getVertexNumber(); i++) {

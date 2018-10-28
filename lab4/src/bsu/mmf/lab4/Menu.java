@@ -55,8 +55,8 @@ class Menu {
                         System.out.println("Choose vertex from 1 to " + graph.getVertexNumber() + ":");
                         int n = (getNumber() - 1);
                         graph.removeVertex(n);
-                        break;
                     }
+                    break;
                 }
                 case 5: {
                     if (graph.getVertexNumber() == 0) {
@@ -66,8 +66,8 @@ class Menu {
                         int n1 = (getNumber() - 1);
                         int n2 = (getNumber() - 1);
                         graph.removeEdge(n1, n2);
-                        break;
                     }
+                    break;
                 }
                 case 6: {
                     if (Algorithm.isEulerian(graph)) {
@@ -83,13 +83,13 @@ class Menu {
                     break;
                 }
                 case 8: {
-                    BFS b = new BFS(graph);
+                    BFS b = new BFS();
                     b.findComponents(graph);
                     break;
                 }
                 case 9: {
-                    BFS b = new BFS(graph);
-                    if (!b.isBigraph(graph, 0)) {
+                    BFS b = new BFS();
+                    if (!b.isBigraph(graph)) {
                         System.out.println("this graph isn't bipartite");
                     }
                     break;
