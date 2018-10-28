@@ -83,12 +83,12 @@ class Menu {
                     break;
                 }
                 case 8: {
-                    BFS b = new BFS();
+                    BFS b = new BFS(graph);
                     b.findComponents(graph);
                     break;
                 }
                 case 9: {
-                    BFS b = new BFS();
+                    BFS b = new BFS(graph);
                     if (!b.isBigraph(graph)) {
                         System.out.println("this graph isn't bipartite");
                     }

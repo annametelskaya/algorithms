@@ -11,7 +11,7 @@ class BFS {
     private int[] colors;
     private int numberOfComponents;
 
-    private void setVar(Graph graph) {
+    BFS(Graph graph) {
         used = new boolean[graph.getVertexNumber()];
         colors = new int[graph.getVertexNumber()];
         for (int i = 0; i < graph.getVertexNumber(); i++) {
@@ -23,7 +23,6 @@ class BFS {
     }
 
     void findComponents(Graph graph) {
-        setVar(graph);
         for (int i = 0; i < graph.getVertexNumber(); i++) {
             if (!used[i]) {
                 numberOfComponents++;
@@ -36,7 +35,6 @@ class BFS {
     }
 
     boolean isBigraph(Graph graph) {
-        setVar(graph);
         doBFS(graph, 0);
         for (int i = 0; i < graph.getVertexNumber(); i++) {
             for (int j = 0; j < graph.getAdjacencyList()[i].size(); j++) {
