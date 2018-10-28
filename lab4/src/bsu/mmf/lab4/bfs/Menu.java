@@ -8,12 +8,8 @@ import java.util.Scanner;
 
 class Menu {
     static void GetMenu() {
-        int v = 5;
+        int v = 0;
         Graph graph = new Graph(v);
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(2, 4);
         boolean flag = true;
         while (flag) {
             System.out.println("\nSelect: " +
@@ -22,8 +18,10 @@ class Menu {
                     "\n3)Add edge" +
                     "\n4)Delete vertex" +
                     "\n5)Delete edge" +
-                    "\n6)BFS" +
-                    "\n7)Exit");
+                    "\n6)Find components" +
+                    "\n7)Delete all vertices in graph" +
+                    "\n8)Delete all edges in graph" +
+                    "\n9)Exit");
             int num = getNumber();
             switch (num) {
                 case 1: {
@@ -55,15 +53,25 @@ class Menu {
                     break;
                 }
                 case 6: {
-                    BFS.find(graph);
+                    BFS b = new BFS();
+                    b.findComponents(graph);
                     break;
                 }
                 case 7: {
+                    v = 0;
+                    graph = new Graph(v);
+                    break;
+                }
+                case 8: {
+                    graph = new Graph(v);
+                    break;
+                }
+                case 9: {
                     flag = false;
                     break;
                 }
                 default: {
-                    System.out.println("choose 1-");
+                    System.out.println("choose 1-9");
                 }
             }
         }

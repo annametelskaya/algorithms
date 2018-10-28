@@ -19,8 +19,9 @@ class Menu {
                     "\n5)Delete edge" +
                     "\n6)Check is it possible to build cycle" +
                     "\n7)Build cycle" +
-                    "\n8)Reset graph" +
-                    "\n9)Exit");
+                    "\n8)Delete all vertices in graph" +
+                    "\n9)Delete all edges in graph" +
+                    "\n10)Exit");
             int num = getNumber();
             switch (num) {
                 case 1: {
@@ -65,15 +66,20 @@ class Menu {
                     break;
                 }
                 case 8: {
+                    v = 0;
                     graph = new Graph(v);
                     break;
                 }
                 case 9: {
+                    graph = new Graph(v);
+                    break;
+                }
+                case 10: {
                     flag = false;
                     break;
                 }
                 default: {
-                    System.out.println("choose 1-9");
+                    System.out.println("choose 1-10");
                     break;
                 }
             }
