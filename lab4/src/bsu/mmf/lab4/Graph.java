@@ -94,7 +94,7 @@ public class Graph {
             for (int connected : getAdjacencyList()[v]) {
                 System.out.print(" -> " + (connected + 1));
             }
-            System.out.println(" " + getAdjacencyList()[v].size());
+            System.out.println();
         }
     }
 

@@ -18,8 +18,6 @@ class BFS {
             used[i] = false;
             colors[i] = 0;
         }
-        queue = new LinkedList<>();
-        c = new LinkedList<>();
     }
 
     void findComponents(Graph graph) {
@@ -63,6 +61,8 @@ class BFS {
     }
 
     private void doBFS(Graph graph, int v) {
+        queue = new LinkedList<>();
+        c = new LinkedList<>();
         maxLevel = 0;
         used[v] = true;
         queue.add(v);
