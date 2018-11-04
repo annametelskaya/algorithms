@@ -15,7 +15,8 @@ public class Menu {
                     "\n3)Add edges" +
                     "\n4)Remove vertex" +
                     "\n5)Remove edge" +
-                    "\n6)Exit");
+                    "\n6)Print Array" +
+                    "\n7)Exit");
             int num = getNumber();
             switch (num) {
                 case 1: {
@@ -67,6 +68,13 @@ public class Menu {
                     break;
                 }
                 case 6: {
+                    int[][] g = graph.convertToArray();
+                    int[][] prim = Prim.primsAlgorithm(g);
+                    //System.out.println();
+                    //Prim.primsAlgorithm(g);
+                    break;
+                }
+                case 7: {
                     flag = false;
                     break;
                 }
