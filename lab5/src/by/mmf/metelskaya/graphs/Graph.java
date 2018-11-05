@@ -82,21 +82,6 @@ class Graph {
         vertexNumber--;
     }
 
-    int[][] convertToArray() {
-        int[][] graph = new int[vertexNumber][vertexNumber];
-        for (int i = 0; i < vertexNumber; i++) {
-            for (int j = 0; j < vertexNumber; j++) {
-                graph[i][j] = 0;
-            }
-        }
-        for (int i = 0; i < vertexNumber; i++) {
-            for (int j = 0; j < adjacencyList[i].size(); j++) {
-                graph[i][adjacencyList[i].get(j).getVertex()] = adjacencyList[i].get(j).getWeight();
-            }
-        }
-        return graph;
-    }
-
     void printGraph() {
         if (getVertexNumber() == 0) {
             System.out.println("Enter graph");

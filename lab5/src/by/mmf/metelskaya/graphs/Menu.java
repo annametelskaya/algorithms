@@ -5,8 +5,18 @@ import java.util.Scanner;
 
 public class Menu {
     static void getMenu() {
-        int v = 0;
+        int v = 7;
         Graph graph = new Graph(v);
+        graph.addEdge(0, 1, 1);
+        graph.addEdge(0, 6, 1);
+        graph.addEdge(1, 6, 1);
+        graph.addEdge(2, 6, 5);
+        graph.addEdge(2, 3, 3);
+        graph.addEdge(1, 4, 2);
+        graph.addEdge(3, 5, 4);
+        graph.addEdge(6, 5, 2);
+        graph.addEdge(4, 6, 2);
+        graph.addEdge(4, 5, 2);
         boolean flag = true;
         while (flag) {
             System.out.println("\nSelect: " +
@@ -68,10 +78,9 @@ public class Menu {
                     break;
                 }
                 case 6: {
-                    int[][] g = graph.convertToArray();
+                    int[][] g = WorkWithGraph.convertToMatrix(graph);
                     int[][] prim = Prim.primsAlgorithm(g);
-                    //System.out.println();
-                    //Prim.primsAlgorithm(g);
+                    int[][] kruskal = Kruskal.kruskalsAlgorithm(g);
                     break;
                 }
                 case 7: {
