@@ -1,4 +1,4 @@
-package by.mmf.metelskaya.graphs;
+package by.mmf.metelskaya.graphs.primandkruskal;
 
 import java.util.LinkedList;
 
@@ -34,15 +34,6 @@ class Graph {
 
     public void setAdjacencyList(LinkedList<Node>[] adjacencyList) {
         this.adjacencyList = adjacencyList;
-    }
-
-    Node findNode(int first, int second) {
-        for (Node node : getAdjacencyList()[first]) {
-            if (node.getVertex() == second) {
-                return node;
-            }
-        }
-        return null;
     }
 
     void addEdge(int first, int second, int weight) {
@@ -88,19 +79,14 @@ class Graph {
         vertexNumber--;
     }
 
-    void printGraph() {
-        if (getVertexNumber() == 0) {
-            System.out.println("Enter graph");
-            return;
-        }
-        System.out.println("Adjacency List:  ");
-        for (int v = 0; v < getVertexNumber(); v++) {
-            System.out.print("vertex " + (v + 1));
-            for (Node connected : getAdjacencyList()[v]) {
-                System.out.print(" -> " + connected);
+    private Node findNode(int first, int second) {
+        for (Node node : getAdjacencyList()[first]) {
+            if (node.getVertex() == second) {
+                return node;
             }
-            System.out.println();
         }
+        return null;
     }
+
 
 }

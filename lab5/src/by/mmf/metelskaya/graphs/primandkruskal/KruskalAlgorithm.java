@@ -1,10 +1,9 @@
-package by.mmf.metelskaya.graphs;
+package by.mmf.metelskaya.graphs.primandkruskal;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
-public class Kruskal {
-    static int[][] kruskalsAlgorithm(int[][] graph) {
+class KruskalAlgorithm {
+    static int[][] findKruskalMST(int[][] graph) {
         int vertexNumber = graph.length;
         int maxWeight = findMaxWeight(graph);
         int[][] mst = new int[vertexNumber][vertexNumber];
@@ -14,22 +13,26 @@ public class Kruskal {
             }
         }
         for (int i = 1; i <= maxWeight; i++) {
-            for (int j = 0; j < graph.length; j++) {
-                for (int k = 0; k < graph.length; k++) {
-                    if (graph[j][k] == i) {
-                        mst[j][k] = i;
-                        mst[k][j] = i;
-                        if (isCycle(mst, mst.length)) {
-                            mst[j][k] = 0;
-                            mst[k][j] = 0;
-                        }
-                    }
-                }
-            }
+            addVertexToMST(mst, graph, i);
         }
         System.out.println();
         //WorkWithGraph.printMST(mst);
         return mst;
+    }
+
+    private static void addVertexToMST(int[][] mst, int[][] graph, int weight) {
+        for (int j = 0; j < graph.length; j++) {
+            for (int k = 0; k < graph.length; k++) {
+                if (graph[j][k] == weight) {
+                    mst[j][k] = weight;
+                    mst[k][j] = weight;
+                    if (isCycle(mst, mst.length)) {
+                        mst[j][k] = 0;
+                        mst[k][j] = 0;
+                    }
+                }
+            }
+        }
     }
 
     private static int findMaxWeight(int[][] graph) {

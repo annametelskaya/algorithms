@@ -1,24 +1,14 @@
-package by.mmf.metelskaya.graphs;
+package by.mmf.metelskaya.graphs.primandkruskal;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
     static void getMenu() {
-        int v = 7;
+        int v = 0;
         Graph graph = new Graph(v);
         Graph primGraph = new Graph(v);
         Graph kruskalGraph = new Graph(v);
-        graph.addEdge(0, 1, 1);
-        graph.addEdge(0, 6, 1);
-        graph.addEdge(1, 6, 1);
-        graph.addEdge(2, 6, 5);
-        graph.addEdge(2, 3, 3);
-        graph.addEdge(1, 4, 2);
-        graph.addEdge(3, 5, 4);
-        graph.addEdge(6, 5, 2);
-        graph.addEdge(4, 6, 2);
-        graph.addEdge(4, 5, 2);
         boolean flag = true;
         while (flag) {
             System.out.println("\nSelect: " +
@@ -34,7 +24,11 @@ public class Menu {
             int num = getNumber();
             switch (num) {
                 case 1: {
-                    graph.printGraph();
+                    if (graph.getVertexNumber() != 0) {
+                        WorkWithGraph.printGraph(graph);
+                    } else {
+                        System.out.println("Enter graph first");
+                    }
                     break;
                 }
 
@@ -83,21 +77,21 @@ public class Menu {
                 }
                 case 6: {
                     int[][] g = WorkWithGraph.convertToMatrix(graph);
-                    primGraph = new Graph(g.length, WorkWithGraph.convertToList(Prim.primsAlgorithm(g)));
-                    primGraph.printGraph();
-                    // int[][] prim = Prim.primsAlgorithm(g);
+                    primGraph = new Graph(g.length, WorkWithGraph.convertToList(PrimAlgorithm.findPrimMST(g)));
+                    WorkWithGraph.printGraph(primGraph);
+                    // int[][] prim = PrimAlgorithm.findPrimMST(g);
                     break;
                 }
                 case 7: {
                     int[][] g = WorkWithGraph.convertToMatrix(graph);
-                    kruskalGraph = new Graph(g.length, WorkWithGraph.convertToList(Kruskal.kruskalsAlgorithm(g)));
-                    kruskalGraph.printGraph();
-                    // int[][] kruskal = Kruskal.kruskalsAlgorithm(g);
+                    kruskalGraph = new Graph(g.length, WorkWithGraph.convertToList(KruskalAlgorithm.findKruskalMST(g)));
+                    WorkWithGraph.printGraph(kruskalGraph);
+                    // int[][] kruskal = KruskalAlgorithm.findKruskalMST(g);
                     break;
                 }
                 case 8: {
                     Graph combineGraph = WorkWithGraph.combineGraphs(primGraph, kruskalGraph);
-                    combineGraph.printGraph();
+                    WorkWithGraph.printGraph(combineGraph);
                     break;
                 }
                 case 9: {
@@ -105,7 +99,7 @@ public class Menu {
                     break;
                 }
                 default: {
-                    System.out.println("choose 1-4");
+                    System.out.println("choose 1-9");
                     break;
                 }
             }

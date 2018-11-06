@@ -1,4 +1,4 @@
-package by.mmf.metelskaya.graphs;
+package by.mmf.metelskaya.graphs.primandkruskal;
 
 class Node {
     private int vertex;
@@ -27,6 +27,6 @@ class Node {
 
     @Override
     public String toString() {
-        return "[v:" + (vertex + 1) + ",w:" + weight + "]";
+        return "[vertex:" + (vertex + 1) + ",weight:" + weight + "]";
     }
 }

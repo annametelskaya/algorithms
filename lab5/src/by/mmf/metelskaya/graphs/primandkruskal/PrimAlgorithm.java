@@ -1,11 +1,12 @@
-package by.mmf.metelskaya.graphs;
+package by.mmf.metelskaya.graphs.primandkruskal;
 
-class Prim {
-    static int[][] primsAlgorithm(int graph[][]) {
+class PrimAlgorithm {
+    static int[][] findPrimMST(int graph[][]) {
         int vertexNumber = graph.length;
         int[][] mst = new int[vertexNumber][vertexNumber];
         int min[] = new int[vertexNumber];
         boolean used[] = new boolean[vertexNumber];
+        int parent[] = new int[vertexNumber];
         for (int i = 0; i < vertexNumber; i++) {
             for (int j = 0; j < vertexNumber; j++) {
                 mst[i][j] = 0;
@@ -13,19 +14,18 @@ class Prim {
             min[i] = Integer.MAX_VALUE;
             used[i] = false;
         }
-        int parent[] = new int[vertexNumber];
         min[0] = 0;
-        parent[0] = -1;
-        for (int count = 0; count < vertexNumber - 1; count++) {
+        for (int i = 0; i < vertexNumber - 1; i++) {
             int u = findMinIndex(min, used, vertexNumber);
             used[u] = true;
-            for (int v = 0; v < vertexNumber; v++)
+            for (int v = 0; v < vertexNumber; v++) {
                 if (graph[u][v] != 0 && !used[v] && graph[u][v] < min[v]) {
                     parent[v] = u;
                     min[v] = graph[u][v];
                 }
+            }
         }
-        for (int i = 1; i < vertexNumber; i++) {
+        for (int i = 0; i < vertexNumber; i++) {
             mst[parent[i]][i] = graph[i][parent[i]];
             mst[i][parent[i]] = graph[i][parent[i]];
         }

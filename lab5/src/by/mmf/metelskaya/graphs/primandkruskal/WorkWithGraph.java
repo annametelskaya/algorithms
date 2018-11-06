@@ -1,8 +1,8 @@
-package by.mmf.metelskaya.graphs;
+package by.mmf.metelskaya.graphs.primandkruskal;
 
 import java.util.LinkedList;
 
-public class WorkWithGraph {
+class WorkWithGraph {
     static int[][] convertToMatrix(Graph graph) {
         int vertexNumber = graph.getVertexNumber();
         int[][] matrix = new int[vertexNumber][vertexNumber];
@@ -58,7 +58,22 @@ public class WorkWithGraph {
                 }
             }
         }
-        Graph combineGraph = new Graph(vertexNumber, convertToList(combine));
-        return combineGraph;
+        return new Graph(vertexNumber, convertToList(combine));
     }
+
+    static void printGraph(Graph graph) {
+        if (graph.getVertexNumber() == 0) {
+            System.out.println("Enter graph");
+            return;
+        }
+        System.out.println("Adjacency List:  ");
+        for (int v = 0; v < graph.getVertexNumber(); v++) {
+            System.out.print("vertex " + (v + 1));
+            for (Node connected : graph.getAdjacencyList()[v]) {
+                System.out.print(" -> " + connected);
+            }
+            System.out.println();
+        }
+    }
+
 }
