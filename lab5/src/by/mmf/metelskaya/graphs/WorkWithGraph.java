@@ -19,15 +19,15 @@ public class WorkWithGraph {
         return matrix;
     }
 
-    static LinkedList<Integer>[] convertToList(int[][] matrix) {
-        LinkedList<Integer>[] adjacencyList = new LinkedList[matrix.length];
+    static LinkedList<Node>[] convertToList(int[][] matrix) {
+        LinkedList<Node>[] adjacencyList = new LinkedList[matrix.length];
         for (int i = 0; i < matrix.length; i++) {
             adjacencyList[i] = new LinkedList<>();
         }
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++)
                 if (matrix[i][j] != 0) {
-                    adjacencyList[i].add(j);
+                    adjacencyList[i].add(new Node(j, matrix[i][j]));
                 }
         }
         return adjacencyList;
@@ -39,5 +39,26 @@ public class WorkWithGraph {
                 System.out.print(a[j] + " ");
             System.out.println();
         }
+    }
+
+    static Graph combineGraphs(Graph primGraph, Graph kruskalGraph) {
+        int[][] prim = convertToMatrix(primGraph);
+        int[][] kruskal = convertToMatrix(kruskalGraph);
+        int vertexNumber = prim.length;
+        int[][] combine = new int[vertexNumber][vertexNumber];
+        for (int i = 0; i < vertexNumber; i++) {
+            for (int j = 0; j < vertexNumber; j++) {
+                if (prim[i][j] == 0 && kruskal[i][j] == 0) {
+                    combine[i][j] = 0;
+                } else {
+                    if (prim[i][j] != 0)
+                        combine[i][j] = prim[i][j];
+                    if (kruskal[i][j] != 0)
+                        combine[i][j] = kruskal[i][j];
+                }
+            }
+        }
+        Graph combineGraph = new Graph(vertexNumber, convertToList(combine));
+        return combineGraph;
     }
 }

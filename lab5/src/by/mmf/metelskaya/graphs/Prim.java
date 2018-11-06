@@ -29,7 +29,7 @@ class Prim {
             mst[parent[i]][i] = graph[i][parent[i]];
             mst[i][parent[i]] = graph[i][parent[i]];
         }
-        WorkWithGraph.printMST(mst);
+        //WorkWithGraph.printMST(mst);
         return mst;
     }
 

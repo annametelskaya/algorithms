@@ -19,7 +19,7 @@ public class Kruskal {
                     if (graph[j][k] == i) {
                         mst[j][k] = i;
                         mst[k][j] = i;
-                        if (!isCyclic(mst)) {
+                        if (isCycle(mst, mst.length)) {
                             mst[j][k] = 0;
                             mst[k][j] = 0;
                         }
@@ -28,7 +28,7 @@ public class Kruskal {
             }
         }
         System.out.println();
-        WorkWithGraph.printMST(mst);
+        //WorkWithGraph.printMST(mst);
         return mst;
     }
 
@@ -44,14 +44,12 @@ public class Kruskal {
         return maxWeight;
     }
 
-    private static boolean dfs(LinkedList<Integer>[] graph, int vertexNumber, boolean[] used, int[] colors, int start) {
-
-    }
-
-    private static boolean checkColors(int[] colors, LinkedList<Integer>[] graph, int vertexNumber) {
+    private static boolean isCycle(int[][] matrix, int vertexNumber) {
+        LinkedList<Node>[] graph = WorkWithGraph.convertToList(matrix);
+        boolean[] used = new boolean[vertexNumber];
         for (int i = 0; i < vertexNumber; i++) {
-            for (int j = 0; j < graph[i].size(); j++) {
-                if (colors[i] == colors[graph[i].get(j)]) {
+            if (!used[i]) {
+                if (isCycleUtil(graph, i, used, -1)) {
                     return true;
                 }
             }
@@ -59,19 +57,20 @@ public class Kruskal {
         return false;
     }
 
-    private static boolean isCyclic(int[][] matrix) {
-        boolean b = false;
-        int[] colors = new int[matrix.length];
-        boolean[] used = new boolean[matrix.length];
-        for (int i = 0; i < matrix.length; i++) {
-            colors[i] = 0;
-            used[i] = false;
-        }
-        for (int i = 0; i < matrix.length; i++)
-            if (colors[i] == 0) {
-                colors[i] = 1;
-                b = dfs(WorkWithGraph.convertToList(matrix), matrix.length, used, colors, i);
+    private static boolean isCycleUtil(LinkedList<Node>[] graph, int currVertex, boolean[] visited, int parent) {
+        visited[currVertex] = true;
+        for (int i = 0; i < graph[currVertex].size(); i++) {
+            int vertex = graph[currVertex].get(i).getVertex();
+            if (vertex != parent) {
+                if (visited[vertex]) {
+                    return true;
+                } else {
+                    if (isCycleUtil(graph, vertex, visited, currVertex)) {
+                        return true;
+                    }
+                }
             }
-        return b;
+        }
+        return false;
     }
 }

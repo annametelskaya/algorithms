@@ -14,6 +14,12 @@ class Graph {
         }
     }
 
+    Graph(int number, LinkedList<Node>[] list) {
+        vertexNumber = number;
+        adjacencyList = list;
+    }
+
+
     int getVertexNumber() {
         return vertexNumber;
     }
