@@ -8,38 +8,38 @@ class FloydWarshallAlgorithm {
 
     static void floydWarshall(int[][] graph) {
         int vertexNumber = graph.length;
-        int[][] dist = new int[vertexNumber][vertexNumber];
+        int[][] distant = new int[vertexNumber][vertexNumber];
         for (int i = 0; i < vertexNumber; i++) {
-            System.arraycopy(graph[i], 0, dist[i], 0, vertexNumber);
+            System.arraycopy(graph[i], 0, distant[i], 0, vertexNumber);
         }
         for (int k = 0; k < vertexNumber; k++)
             for (int i = 0; i < vertexNumber; i++)
                 for (int j = 0; j < vertexNumber; j++)
-                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
-        printSolution(dist);
-        findPlace(dist);
+                    distant[i][j] = min(distant[i][j], distant[i][k] + distant[k][j]);
+        print(distant);
+        findPlace(distant);
     }
 
-    private static void printSolution(int graph[][]) {
+    private static void print(int graph[][]) {
         System.out.println("shortest distances between every pair of vertices: ");
         for (int[] g : graph) {
             for (int j = 0; j < graph.length; ++j)
                 System.out.print(g[j] + "   ");
             System.out.println();
         }
+        System.out.println();
     }
 
     private static void findPlace   (int[][] graph) {
         int vertexNumber = graph.length;
-        int[] extr = new int[vertexNumber];
-        int rad = Integer.MAX_VALUE;
+        int[] eccentricity = new int[vertexNumber];
+        int radius = Integer.MAX_VALUE;
         int center=0;
         for (int i = 0; i < vertexNumber; i++) {
-            rad = min(rad, extr[i]);
+            radius = min(radius, eccentricity[i]);
         }
-
         for (int i = 0; i < vertexNumber; i++) {
-            if (extr[i] == rad) {
+            if (eccentricity[i] == radius) {
                 center = i+1;
             }
         }

@@ -1,28 +1,12 @@
-package by.bsu.metelskaya.crossroads;
+package by.bsu.metelskaya.dijkstra;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-class Menu {
+public class Menu {
     static void getMenu() {
-        int v = 0; //5
+        int v = 0;
         Graph graph = new Graph(v);
-//        graph.addEdge(0,1,7);
-//        graph.addEdge(0,2,5);
-//        graph.addEdge(1,2,7);
-//        graph.addEdge(0,4,10);
-//        graph.addEdge(2,4,1);
-//        graph.addEdge(2,3,6);
-//        graph.addEdge(3,4,4);
-
-//        graph.addEdge(0,1,10);
-//        graph.addEdge(0,4,10);
-//        graph.addEdge(0,2,30);
-//        graph.addEdge(0,3,50);
-//        graph.addEdge(1,3,40);
-//        graph.addEdge(2,4,10);
-//        graph.addEdge(3,4,30);
-//        graph.addEdge(2,3,20);
         boolean flag = true;
         while (flag) {
             System.out.println("\nSelect: " +
@@ -89,7 +73,12 @@ class Menu {
                     break;
                 }
                 case 6: {
-                    FloydWarshallAlgorithm.floydWarshall(WorkWithGraph.convertToMatrix(graph));
+                    System.out.printf("Start vertex: ");
+                    int start = getNumber()-1;
+                    System.out.printf("Finish vertex: ");
+                    int finish = getNumber()-1;
+                    DijkstraAlgorithm.dijkstra(WorkWithGraph.convertToMatrix(graph), start,finish, graph.getVertexNumber());
+                    // FloydWarshallAlgorithm.floydWarshall(WorkWithGraph.convertToMatrix(graph));
                     break;
                 }
                 default: {

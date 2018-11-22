@@ -1,4 +1,4 @@
-package by.bsu.metelskaya.crossroads;
+package by.bsu.metelskaya.dijkstra;
 
 import java.util.LinkedList;
 
@@ -32,7 +32,6 @@ class Graph {
 
     void addEdge(int first, int second, int weight) {
         adjacencyList[first].add(new Node(second, weight));
-        adjacencyList[second].add(new Node(first, weight));
     }
 
     void addVertex() {
@@ -48,7 +47,6 @@ class Graph {
         Node node1 = findNode(first, second), node2 = findNode(second, first);
         if (node1 != null && node2 != null) {
             adjacencyList[first].remove(adjacencyList[first].indexOf(node1));
-            adjacencyList[second].remove(adjacencyList[second].indexOf(node2));
         } else {
             System.out.println("Can't find edge");
         }
@@ -58,7 +56,6 @@ class Graph {
         for (int i = 0; i < vertexNumber; i++) {
             if (adjacencyList[i].indexOf(findNode(i, v)) > -1) {
                 adjacencyList[i].remove(adjacencyList[i].indexOf(findNode(i, v)));
-                adjacencyList[v].remove(adjacencyList[v].indexOf(findNode(v, i)));
             }
         }
         for (int i = 0; i < vertexNumber; i++) {
