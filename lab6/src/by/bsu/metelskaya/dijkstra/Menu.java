@@ -15,7 +15,7 @@ public class Menu {
                     "\n3)Add edges" +
                     "\n4)Remove vertex" +
                     "\n5)Remove edge" +
-                    "\n6)Cross road" +
+                    "\n6)Dijkstra" +
                     "\n7)Exit");
             int num = getNumber();
             switch (num) {
