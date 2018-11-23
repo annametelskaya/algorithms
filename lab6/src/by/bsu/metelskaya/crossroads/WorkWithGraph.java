@@ -7,8 +7,11 @@ class WorkWithGraph {
         int[][] matrix = new int[vertexNumber][vertexNumber];
         for (int i = 0; i < vertexNumber; i++) {
             for (int j = 0; j < vertexNumber; j++) {
-                matrix[i][j] = 0;
+                matrix[i][j] = 9999;
             }
+        }
+        for (int i = 0; i < vertexNumber; i++) {
+                matrix[i][i] = 0;
         }
         for (int i = 0; i < vertexNumber; i++) {
             for (int j = 0; j < graph.getAdjacencyList()[i].size(); j++) {

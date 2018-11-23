@@ -1,5 +1,6 @@
 package by.bsu.metelskaya.crossroads;
 
+import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 class FloydWarshallAlgorithm {
@@ -30,19 +31,28 @@ class FloydWarshallAlgorithm {
         System.out.println();
     }
 
-    private static void findPlace   (int[][] graph) {
+    private static void findPlace(int[][] graph) {
         int vertexNumber = graph.length;
         int[] eccentricity = new int[vertexNumber];
         int radius = Integer.MAX_VALUE;
-        int center=0;
+        int center = 0, j = 0;
+        for (int i = 0; i < vertexNumber; i++) {
+            eccentricity[i] = 0;
+        }
+        for (int i = 0; i < vertexNumber; i++) {
+            for (j = 0; j < vertexNumber; j++) {
+                eccentricity[i] = max(eccentricity[i], graph[i][j]);
+            }
+            System.out.println("Farthest crossroad for " + (i + 1) + " road " + j + " has time " + eccentricity[i]);
+        }
         for (int i = 0; i < vertexNumber; i++) {
             radius = min(radius, eccentricity[i]);
         }
         for (int i = 0; i < vertexNumber; i++) {
             if (eccentricity[i] == radius) {
-                center = i+1;
+                center = i;
             }
         }
-        System.out.println("Center: "+ center);
+        System.out.println("Fire station can be on : " + center + " crossroad");
     }
 }
