@@ -2,7 +2,7 @@ package by.bsu.metelskaya.algorithm;
 
 import by.bsu.metelskaya.graph.Graph;
 
-public class DepthFirstSearchAlgorithm {
+public class DFS {
     private Graph graph;
     private boolean used[];
     private int disc[];
@@ -11,7 +11,7 @@ public class DepthFirstSearchAlgorithm {
     private boolean articulationPoints[];
     private int time;
 
-    public DepthFirstSearchAlgorithm(Graph graph) {
+    public DFS(Graph graph) {
         time = 0;
         this.graph = graph;
         used = new boolean[graph.getVertexNumber()];
@@ -29,17 +29,17 @@ public class DepthFirstSearchAlgorithm {
     public void findArticulationPoints() {
         for (int i = 0; i < graph.getVertexNumber(); i++)
             if (!used[i])
-                searchForAP(i, used, disc, low, parent, articulationPoints);
+                searchForAP(i);
         for (int i = 0; i < graph.getVertexNumber(); i++)
             if (articulationPoints[i])
-                System.out.print(i + " ");
+                System.out.print((i + 1) + " ");
     }
 
     public boolean isBiconnected() {
         boolean flag = true;
         for (int i = 0; i < graph.getVertexNumber(); i++)
             if (!used[i])
-                searchForAP(i, used, disc, low, parent, articulationPoints);
+                searchForAP(i);
         for (boolean articulationPoint : articulationPoints)
             if (articulationPoint)
                 flag = false;
@@ -49,20 +49,22 @@ public class DepthFirstSearchAlgorithm {
         return flag;
     }
 
-    private void searchForAP(int u, boolean visited[], int disc[], int low[], int parent[], boolean ap[]) {
-        visited[u] = true;
-        disc[u] = low[u] = ++time;
+    private void searchForAP(int u) {
+        used[u] = true;
+        disc[u] = time;
+        low[u] = time;
+        time++;
         int children = 0;
         for (int v : graph.getAdjacencyList()[u]) {
-            if (!visited[v]) {
+            if (!used[v]) {
                 children++;
                 parent[v] = u;
-                searchForAP(v, visited, disc, low, parent, ap);
+                searchForAP(v);
                 low[u] = Math.min(low[u], low[v]);
                 if (parent[u] == -1 && children > 1)
-                    ap[u] = true;
+                    articulationPoints[u] = true;
                 if (parent[u] != -1 && low[v] >= disc[u])
-                    ap[u] = true;
+                    articulationPoints[u] = true;
             } else if (v != parent[u])
                 low[u] = Math.min(low[u], disc[v]);
         }
