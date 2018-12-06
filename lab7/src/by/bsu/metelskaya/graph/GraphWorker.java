@@ -10,7 +10,7 @@ public class GraphWorker {
         for (int v = 0; v < graph.getVertexNumber(); v++) {
             System.out.print("vertex " + (v + 1));
             for (int connected : graph.getAdjacencyList()[v]) {
-                System.out.print(" -> " + connected);
+                System.out.print(" -> " + (connected + 1));
             }
             System.out.println();
         }

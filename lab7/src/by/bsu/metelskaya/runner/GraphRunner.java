@@ -1,10 +1,12 @@
 package by.bsu.metelskaya.runner;
 
+import by.bsu.metelskaya.algorithm.BFS;
 import by.bsu.metelskaya.algorithm.DFS;
 import by.bsu.metelskaya.graph.Graph;
 import by.bsu.metelskaya.graph.GraphWorker;
 
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class GraphRunner {
@@ -13,8 +15,13 @@ public class GraphRunner {
     }
 
     private static void getMenu() {
-        int v = 0;
+        int v = 5;
         Graph graph = new Graph(v);
+        graph.addEdge(1, 0);
+        graph.addEdge(0, 2);
+        graph.addEdge(2, 1);
+        graph.addEdge(0, 3);
+        graph.addEdge(3, 4);
         boolean flag = true;
         while (flag) {
             System.out.println("\nSelect: " +
@@ -23,7 +30,7 @@ public class GraphRunner {
                     "\n3)Add edges" +
                     "\n4)Remove vertex" +
                     "\n5)Remove edge" +
-                    "\n6)Check is biconnected" +
+                    "\n6)Add edges to do graph biconnected" +
                     "\n7)Exit");
             int num = getNumber();
             switch (num) {
@@ -80,13 +87,41 @@ public class GraphRunner {
                 }
                 case 6: {
                     DFS dfs = new DFS(graph);
-                    if (dfs.isBiconnected()) {
-                        System.out.println("Graph is biconnected");
-                    } else {
+                    if (!dfs.isBiconnected()) {
                         System.out.println("Graph is not biconnected\nArticulation points:");
                         dfs = new DFS(graph);
-                        dfs.findArticulationPoints();
+                        LinkedList<Integer> points = dfs.findArticulationPoints();
+                        int k = 0;
+                        for (int i = 0; i < points.size(); i++) {
+                            dfs = new DFS(graph);
+                            if (!dfs.isBiconnected()) {
+                                LinkedList<Integer> savedList = new LinkedList<>();
+                                int point = points.get(i) - k;
+                                savedList.addAll(graph.getAdjacencyList()[point]);
+                                graph.removeVertex(point);
+                                GraphWorker.printGraph(graph);
+                                BFS bfs = new BFS(graph);
+                                bfs.findComponents(graph);
+                                GraphWorker.printGraph(graph);
+                                graph.addVertex();
+                                for (int j = 0; j < savedList.size(); j++) {
+                                    if (savedList.get(j) > point)
+                                        savedList.set(j, savedList.get(j) - 1);
+                                    graph.addEdge(graph.getVertexNumber() - 1, savedList.get(j));
+                                }
+                                GraphWorker.printGraph(graph);
+                                k++;
+                            }
+                        }
+                    } else {
+                        System.out.println("Graph already a biconnected");
                     }
+                    dfs = new DFS(graph);
+                    System.out.println("Connected? " + dfs.isBiconnected());
+                    break;
+                }
+                case 7: {
+                    flag = false;
                     break;
                 }
                 default: {

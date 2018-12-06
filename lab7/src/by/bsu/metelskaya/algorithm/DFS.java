@@ -2,6 +2,8 @@ package by.bsu.metelskaya.algorithm;
 
 import by.bsu.metelskaya.graph.Graph;
 
+import java.util.LinkedList;
+
 public class DFS {
     private Graph graph;
     private boolean used[];
@@ -26,13 +28,18 @@ public class DFS {
         }
     }
 
-    public void findArticulationPoints() {
+    public LinkedList<Integer> findArticulationPoints() {
+        LinkedList<Integer> points = new LinkedList<>();
         for (int i = 0; i < graph.getVertexNumber(); i++)
             if (!used[i])
                 searchForAP(i);
         for (int i = 0; i < graph.getVertexNumber(); i++)
-            if (articulationPoints[i])
+            if (articulationPoints[i]) {
                 System.out.print((i + 1) + " ");
+                points.add(i);
+            }
+        System.out.println();
+        return points;
     }
 
     public boolean isBiconnected() {

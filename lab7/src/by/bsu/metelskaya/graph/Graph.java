@@ -26,6 +26,10 @@ public class Graph {
         adjacencyList[second].add(first);
     }
 
+    public void addEdges(LinkedList<Integer> list) {
+
+    }
+
     public void addVertex() {
         vertexNumber++;
         LinkedList<Integer>[] a = adjacencyList;
