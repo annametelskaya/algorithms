@@ -31,9 +31,6 @@ public class DFS {
     public LinkedList<Integer> findArticulationPoints() {
         LinkedList<Integer> points = new LinkedList<>();
         for (int i = 0; i < graph.getVertexNumber(); i++)
-            if (!used[i])
-                searchForAP(i);
-        for (int i = 0; i < graph.getVertexNumber(); i++)
             if (articulationPoints[i]) {
                 System.out.print((i + 1) + " ");
                 points.add(i);

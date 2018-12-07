@@ -15,13 +15,14 @@ public class GraphRunner {
     }
 
     private static void getMenu() {
-        int v = 5;
+        int v = 0;
         Graph graph = new Graph(v);
-        graph.addEdge(1, 0);
-        graph.addEdge(0, 2);
-        graph.addEdge(2, 1);
-        graph.addEdge(0, 3);
-        graph.addEdge(3, 4);
+//        Graph graph = new Graph(5);
+//        graph.addEdge(1, 0);
+//        graph.addEdge(0, 2);
+//        graph.addEdge(2, 1);
+//        graph.addEdge(0, 3);
+//        graph.addEdge(3, 4);
         boolean flag = true;
         while (flag) {
             System.out.println("\nSelect: " +
@@ -89,7 +90,6 @@ public class GraphRunner {
                     DFS dfs = new DFS(graph);
                     if (!dfs.isBiconnected()) {
                         System.out.println("Graph is not biconnected\nArticulation points:");
-                        dfs = new DFS(graph);
                         LinkedList<Integer> points = dfs.findArticulationPoints();
                         int k = 0;
                         for (int i = 0; i < points.size(); i++) {
@@ -99,23 +99,24 @@ public class GraphRunner {
                                 int point = points.get(i) - k;
                                 savedList.addAll(graph.getAdjacencyList()[point]);
                                 graph.removeVertex(point);
-                                GraphWorker.printGraph(graph);
+                                //  GraphWorker.printGraph(graph);
                                 BFS bfs = new BFS(graph);
                                 bfs.findComponents(graph);
-                                GraphWorker.printGraph(graph);
+                                //  GraphWorker.printGraph(graph);
                                 graph.addVertex();
                                 for (int j = 0; j < savedList.size(); j++) {
                                     if (savedList.get(j) > point)
                                         savedList.set(j, savedList.get(j) - 1);
                                     graph.addEdge(graph.getVertexNumber() - 1, savedList.get(j));
                                 }
-                                GraphWorker.printGraph(graph);
+                                // GraphWorker.printGraph(graph);
                                 k++;
                             }
                         }
                     } else {
                         System.out.println("Graph already a biconnected");
                     }
+                    GraphWorker.printGraph(graph);
                     dfs = new DFS(graph);
                     System.out.println("Connected? " + dfs.isBiconnected());
                     break;
