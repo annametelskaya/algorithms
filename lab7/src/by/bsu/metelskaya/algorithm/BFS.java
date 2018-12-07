@@ -2,12 +2,14 @@ package by.bsu.metelskaya.algorithm;
 
 import by.bsu.metelskaya.graph.Graph;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 public class BFS {
     private LinkedList<Integer> queue;
     private LinkedList<Integer> component;
-    private LinkedList<LinkedList<Integer>> components;
+    private LinkedHashMap<Integer,LinkedList<Integer>> components;
+    private int numberOfComponents;
     private boolean[] used;
 
     public BFS(Graph graph) {
@@ -15,17 +17,19 @@ public class BFS {
         for (int i = 0; i < graph.getVertexNumber(); i++) {
             used[i] = false;
         }
+        numberOfComponents=0;
     }
 
     public void findComponents(Graph graph) {
-        components = new LinkedList<>();
+        components = new LinkedHashMap<>();
         for (int i = 0; i < graph.getVertexNumber(); i++) {
             if (!used[i]) {
                 doBFS(graph, i);
-                components.add(component);
+                components.put(numberOfComponents,component);
+                numberOfComponents++;
             }
         }
-        for (int i=0; i<components.size()-1;i++){
+        for (int i=0; i<components.keySet().size()-1;i++){
             graph.addEdge(components.get(i).get(0),components.get(i+1).get(0));
         }
     }
