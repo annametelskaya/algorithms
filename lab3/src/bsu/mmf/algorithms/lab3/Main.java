@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     private static void createArray() throws IOException {
-        String filePath = "/home/anna/Desktop/algorithms/lab3/src/array.txt";
+        String filePath = "src/array.txt";
         BufferedWriter out = new BufferedWriter(new FileWriter(filePath));
         for (int j = 0; j < Variables.NUMBER_OF_ARRAYS; j++) {
             for (int i = 0; i < Variables.ARRAY_SIZE; i++) {
@@ -20,7 +20,7 @@ public class Main {
     }
 
     private static int[][] fillArrays() throws IOException {
-        File file = new File("/home/anna/Desktop/algorithms/lab3/src/array.txt");
+        File file = new File("src/array.txt");
         int[][] array = new int[Variables.NUMBER_OF_ARRAYS][Variables.ARRAY_SIZE];
         Scanner in = new Scanner(file);
         for (int j = 0; j < Variables.NUMBER_OF_ARRAYS; j++) {

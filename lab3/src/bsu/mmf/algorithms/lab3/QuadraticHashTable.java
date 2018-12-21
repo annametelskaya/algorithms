@@ -21,7 +21,7 @@ public class QuadraticHashTable {
     private void insert(int value) {
         int i = 1, hash = hashFunction(value), index = hash;
         while (array[index].getElement() != 0 && array[index].getElement() != value) {
-            index = (index + i * i) % size;
+            index = (hash + i * i) % size;
             i++;
         }
         if (array[index].getElement() != value) {
@@ -43,14 +43,11 @@ public class QuadraticHashTable {
     public Node search(int value) {
         int i = 1, hash = hashFunction(value), index = hash;
         while (array[index].getElement() != 0 && array[index].getElement() != value) {
-            index = (index + i * i) % size;
+            index = (hash + i * i) % size;
             i++;
         }
-        if (array[index].getElement() != value) {
+        if (array[index].getElement() == value) {
             return array[index];
-        }
-        if (MAX_INSERTION < i) {
-            MAX_INSERTION = i;
         }
         return null;
     }
